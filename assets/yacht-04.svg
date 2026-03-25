@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-label="Yacht placeholder">
+<defs>
+  <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0%" stop-color="#024950"/>
+    <stop offset="100%" stop-color="#0FA4AF"/>
+  </linearGradient>
+</defs>
+<rect width="1600" height="900" fill="url(#g)"/>
+<path d="M120 660 L620 470 L1090 470 L1510 620 L1510 730 L1080 740 L620 740 L120 720 Z" fill="rgba(255,255,255,0.2)" stroke="rgba(255,255,255,0.8)" stroke-width="6"/>
+<ellipse cx="1230" cy="370" rx="240" ry="240" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="8"/>
+<text x="70" y="110" fill="white" font-size="56" font-family="Montserrat, Arial, sans-serif">Yacht Asset 04</text>
+</svg>

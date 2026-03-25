@@ -10,8 +10,8 @@
   --navy-primary: #003135;
   --navy-dark: #024950;
   --ocean-deep: #024950;
-  --accent-primary: #0FA4AF;
-  --accent-soft: #AFDDE5;
+  --gold-accent: #964734;
+  --gold-light: #AFDDE5;
   --pearl-white: #F5F5F0;
   --ocean-blue: #0FA4AF;
   --sunset-orange: #FF6B35;
@@ -36,7 +36,7 @@ html {
 
 body {
   font-family: 'Montserrat', sans-serif;
-  color: var(--accent-soft);
+  color: var(--navy-primary);
   background: linear-gradient(135deg, #003135 0%, #024950 55%, #0FA4AF 100%);
   line-height: 1.8;
   overflow-x: hidden;
@@ -246,18 +246,19 @@ nav a:hover {
   background: linear-gradient(135deg, #003135 0%, #024950 100%);
 }
 
-/* Hero media background */
-.hero-video-wrap {
+/* Hero image background */
+.hero-image-wrap {
   position: absolute;
   inset: 0;
   z-index: 1;
 }
 
-.hero-video,
-.hero-image-fallback {
+.hero-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  opacity: 0.94;
+  filter: brightness(0.78) saturate(1.08);
 }
 
 .hero-video {
@@ -2298,26 +2299,4 @@ body.news-page {
 .news-page .news-block {
   border: 1px solid rgba(175,221,229,0.25);
   backdrop-filter: blur(6px);
-}
-
-/* Yacht Life page white treatment */
-body.yacht-life-page .hero-title-main,
-body.yacht-life-page .hero-tagline,
-body.yacht-life-page .hero-title-divider,
-body.yacht-life-page .section-title p,
-body.yacht-life-page .yacht-life-content p,
-body.yacht-life-page .yacht-life-content h2 {
-  color: #ffffff !important;
-}
-
-body.yacht-life-page .hero-title-divider {
-  background: #ffffff !important;
-}
-
-body.yacht-life-page .hero-contrast-plate {
-  border-color: rgba(255,255,255,0.35);
-}
-
-body.yacht-life-page .yacht-life-content {
-  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
 }
