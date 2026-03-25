@@ -265,6 +265,9 @@ function handleFormSubmit(e) {
   
   // RUBRIC #5: Save state
   formManager.saveState('contactForm', formData);
+  const contactLog = JSON.parse(localStorage.getItem('nauteContactSubmissions') || '[]');
+  contactLog.unshift({ ...formData, submittedAt: new Date().toISOString() });
+  localStorage.setItem('nauteContactSubmissions', JSON.stringify(contactLog.slice(0, 25)));
   
   // RUBRIC #5: Display captured data
   console.log('Form Data Captured:', formData);
@@ -533,6 +536,9 @@ function handleInquirySubmit(e) {
   
   // Save state
   formManager.saveState('inquiryForm', inquiryData);
+  const inquiryLog = JSON.parse(localStorage.getItem('nauteInquirySubmissions') || '[]');
+  inquiryLog.unshift({ ...inquiryData, submittedAt: new Date().toISOString() });
+  localStorage.setItem('nauteInquirySubmissions', JSON.stringify(inquiryLog.slice(0, 25)));
   
   console.log('Purchase Inquiry:', inquiryData);
   
@@ -559,13 +565,56 @@ function initAdminPage() {
 function handleAdminLogin() {
   const password = prompt('Enter admin password:');
   
-  if (password === 'LUXEYACHT2025') {
+  if (password === 'NAUTE2026') {
     alert('✓ Admin access granted!');
     // In production, this would make an API call
     console.log('Admin authenticated');
   } else if (password !== null) {
     alert('❌ Invalid password');
   }
+}
+
+
+function initBrandAnimation() {
+  const brands = document.querySelectorAll('.logo-main, .hero-title-main');
+  brands.forEach((el) => el.classList.add('animated-brand'));
+
+  let step = 0;
+  setInterval(() => {
+    step = (step + 1) % 360;
+    document.documentElement.style.setProperty('--brand-hue', `${step}deg`);
+  }, 120);
+}
+
+function renderSubmissionList(targetId, storageKey, formatter) {
+  const host = document.getElementById(targetId);
+  if (!host) return;
+
+  const entries = JSON.parse(localStorage.getItem(storageKey) || '[]');
+  if (!entries.length) {
+    host.innerHTML = '<p style="color:#AFDDE5;">No submissions yet.</p>';
+    return;
+  }
+
+  host.innerHTML = entries.slice(0, 8).map(formatter).join('');
+}
+
+function initAdminDataPanels() {
+  renderSubmissionList('contactSubmissions', 'nauteContactSubmissions', (entry) => `
+    <div style="padding:0.8rem 0;border-bottom:1px solid rgba(175,221,229,0.2)">
+      <strong>${entry.name}</strong> <span style="opacity:0.8;">(${entry.email})</span><br>
+      <span style="opacity:0.85;">${entry.message}</span><br>
+      <small style="opacity:0.7;">${new Date(entry.submittedAt).toLocaleString()}</small>
+    </div>
+  `);
+
+  renderSubmissionList('inquirySubmissions', 'nauteInquirySubmissions', (entry) => `
+    <div style="padding:0.8rem 0;border-bottom:1px solid rgba(175,221,229,0.2)">
+      <strong>${entry.yachtModel || 'General Inquiry'}</strong> — ${entry.inquirerName}<br>
+      <span style="opacity:0.8;">${entry.inquirerEmail} ${entry.inquirerPhone ? ' | ' + entry.inquirerPhone : ''}</span><br>
+      <small style="opacity:0.7;">${new Date(entry.submittedAt).toLocaleString()}</small>
+    </div>
+  `);
 }
 
 // ============================================
@@ -585,6 +634,8 @@ document.addEventListener('DOMContentLoaded', () => {
   initScrollAnimations();
   initSmoothScroll();
   initAdminPage();
+  initAdminDataPanels();
+  initBrandAnimation();
   
   // Update active nav link
   updateActiveNavLink();
